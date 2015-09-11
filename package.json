@@ -1,0 +1,16 @@
+{
+  "name": "qp-parser",
+  "version": "1.0.0",
+  "description": "Parse and serialize query strings",
+  "main": "libs/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "git@github.com:patmood/qp-parser.git"
+  },
+  "author": "Patrick Moody",
+  "license": "ISC"
+}
