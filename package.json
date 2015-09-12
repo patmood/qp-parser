@@ -4,13 +4,15 @@
   "description": "Parse and serialize query strings",
   "main": "libs/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "repository" :
-  {
-    "type" : "git",
-    "url" : "git@github.com:patmood/qs-parser.git"
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:patmood/qs-parser.git"
   },
   "author": "Patrick Moody",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest-cli": "^0.5.4"
+  }
 }
