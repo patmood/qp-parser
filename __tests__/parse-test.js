@@ -27,7 +27,8 @@ describe('parse', () => {
     const expectedReturn = {a: 'b'}
     const expectedDebug = [
       ['delimited pairs', ['a=b']],
-      ['split pairs', [['a','b']] ]
+      ['split pairs', [['a','b']] ],
+      ['parse keys', [[['a'],'b']] ]
     ]
 
     const actual = parse(given, debug)
@@ -40,11 +41,26 @@ describe('parse', () => {
     const expectedReturn = {a: 'b', c: 'd'}
     const expectedDebug = [
       ['delimited pairs', ['a=b', 'c=d'] ],
-      ['split pairs', [['a','b'], ['c', 'd']] ]
+      ['split pairs', [['a','b'], ['c', 'd']] ],
+      ['parse keys', [[['a'],'b'], [['c'], 'd']] ]
     ]
 
     const actual = parse(given, debug)
     expect(actual).toEqual(expectedReturn)
+    expect(debugStore).toEqual(expectedDebug)
+  })
+
+  it('single nested pair', () => {
+    const given = 'a[b]=c'
+    const expectedReturn = {a: {b: 'c'}}
+    const expectedDebug = [
+      ['delimited pairs', ['a[b]=c'] ],
+      ['split pairs', [['a[b]','c']] ],
+      ['parse keys', [[['a','b'], 'c']] ]
+    ]
+
+    const actual = parse(given, debug)
+    // expect(actual).toEqual(expectedReturn)
     expect(debugStore).toEqual(expectedDebug)
   })
 })
