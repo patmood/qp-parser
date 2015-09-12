@@ -13,6 +13,12 @@
   "author": "Patrick Moody",
   "license": "ISC",
   "devDependencies": {
+    "babel-jest": "^5.3.0",
     "jest-cli": "^0.5.4"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testFileExtensions": ["es6", "js"],
+    "moduleFileExtensions": ["js", "json", "es6"]
   }
 }
