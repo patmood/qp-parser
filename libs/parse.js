@@ -22,13 +22,10 @@ const parse = function(qs, debug) {
   debug('parse keys', pairs)
 
   // [[['a', 'b'], 'c']] -> [['a', ['b', 'c']]]
-  // pairs = pairs.map(([fieldName, fieldValue]) => {
-  //   return
-  // })
-  // debug('list of key, pairs', pairs)
+  pairs = pairs.reduce(Utils.appendNestedValue, [])
+  debug('flat to nested', pairs)
 
-  // [[['a'], 'b'], [['c'], 'd']] -> {a: 'b', c: 'd'}
-  // [[['a', 'b'], 'c']] -> {a: [b: 'c']}
+  // [['a', [['b', 'c']]]] -> {a: [b: 'c']}
   return pairs.reduce((memo, [fieldKey, fieldValue]) => {
     memo[fieldKey] = fieldValue
     return memo

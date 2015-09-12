@@ -28,7 +28,8 @@ describe('parse', () => {
     const expectedDebug = [
       ['delimited pairs', ['a=b']],
       ['split pairs', [['a','b']] ],
-      ['parse keys', [[['a'],'b']] ]
+      ['parse keys', [[['a'],'b']] ],
+      ['flat to nested', [['a','b']] ]
     ]
 
     const actual = parse(given, debug)
@@ -42,7 +43,8 @@ describe('parse', () => {
     const expectedDebug = [
       ['delimited pairs', ['a=b', 'c=d'] ],
       ['split pairs', [['a','b'], ['c', 'd']] ],
-      ['parse keys', [[['a'],'b'], [['c'], 'd']] ]
+      ['parse keys', [[['a'],'b'], [['c'], 'd']] ],
+      ['flat to nested', [['a','b'], ['c','d']] ]
     ]
 
     const actual = parse(given, debug)
@@ -56,11 +58,12 @@ describe('parse', () => {
     const expectedDebug = [
       ['delimited pairs', ['a[b]=c'] ],
       ['split pairs', [['a[b]','c']] ],
-      ['parse keys', [[['a','b'], 'c']] ]
+      ['parse keys', [[['a','b'], 'c']] ],
+      ['flat to nested', [['a', [['b', 'c']]]] ]
     ]
 
     const actual = parse(given, debug)
-    // expect(actual).toEqual(expectedReturn)
+    expect(actual).toEqual(expectedReturn)
     expect(debugStore).toEqual(expectedDebug)
   })
 })

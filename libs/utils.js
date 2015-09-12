@@ -8,7 +8,7 @@ const parseKey = (key) => {
 // ([], [['a', 'b'], 'c']) -> [['a', [['b', 'c']]]]
 // ([['a', [['b', 'c']]]], [['a, 'e'], f])
 //   -> [['a', [ ['b','c'], ['e','f'] ]]]
-const flatToNestedPairs = (listOfPairs = [], [fieldPath, fieldValue]) => {
+const appendNestedValue = (listOfPairs = [], [fieldPath, fieldValue]) => {
   let [head, ...rest] = fieldPath
   const indexOfHead = listOfPairs.findIndex(([key, valOrListOfPairs]) => {
     return key === head
@@ -23,13 +23,18 @@ const flatToNestedPairs = (listOfPairs = [], [fieldPath, fieldValue]) => {
     return listOfPairs
   } else {
     // head of path not in list, concat to parent list
-    rest.push(fieldValue)
-    return listOfPairs.concat([head, [rest]])
+    if (rest.length === 0) {
+      // we are at bottom level so add pair
+      return listOfPairs.concat([[head, fieldValue]])
+    } else {
+      rest.push(fieldValue)
+      return listOfPairs.concat([[head, [rest]]])
+    }
   }
 
 }
 
 module.exports = {
   parseKey: parseKey,
-  flatToNestedPairs: flatToNestedPairs
+  appendNestedValue: appendNestedValue
 }

@@ -26,12 +26,22 @@ describe('parseKey', () => {
   })
 })
 
-describe('flatToNestedPairs', () => {
+describe('appendNestedValue', () => {
+  // ([], [['a'], 'b']) -> [['a', [['b']]]]
+  it('handles un-nested', () => {
+    const listOfPairs = []
+    const flatPair = [['a'], 'b']
+    const actual = Utils.appendNestedValue(listOfPairs, flatPair)
+    const expected = [['a', 'b']]
+
+    expect(actual).toEqual(expected)
+  })
+
   // ([], [['a', 'b'], 'c']) -> [['a', [['b', 'c']]]]
   it('adds a new single pair', () => {
     const given = [['a', 'b'], 'c']
-    const actual = Utils.flatToNestedPairs([], given)
-    const expected = ['a', [['b', 'c']]]
+    const actual = Utils.appendNestedValue([], given)
+    const expected = [['a', [['b', 'c']]]]
 
     expect(actual).toEqual(expected)
   })
@@ -40,7 +50,7 @@ describe('flatToNestedPairs', () => {
   it('adds to listOfPairs for existing head', () => {
     const listOfPairs = [['a', [['b', 'c']]]]
     const flatPair = [['a', 'e'], 'f']
-    const actual = Utils.flatToNestedPairs(listOfPairs, flatPair)
+    const actual = Utils.appendNestedValue(listOfPairs, flatPair)
     const expected = [['a', [ ['b','c'], ['e','f'] ]]]
 
     expect(actual).toEqual(expected)
