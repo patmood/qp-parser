@@ -79,6 +79,15 @@ describe('appendNestedValue', () => {
 
     expect(actual).toEqual(expected)
   })
+
+  it('nests past a single value', () => {
+    const listOfPairs = [['a', [['b', 'c']]]]
+    const flatPair = [['a', 'b', 'c'], 'f']
+    const actual = Utils.appendNestedValue(listOfPairs, flatPair)
+    const expected = [['a', [['b','c'], ['b', [['c','f']]]]]]
+
+    expect(actual).toEqual(expected)
+  })
 })
 
 describe('pairListToObject', () => {

@@ -28,7 +28,7 @@ const appendNestedValue = (listOfPairs = [], [fieldPath, fieldValue]) => {
       listOfPairs[indexOfHead] = [head, appendNestedValue(valOrlistOfPairs, [rest, fieldValue])]
       return listOfPairs
     } else {
-      const val = valOrlistOfPairs  // << where is this relevant?
+      const val = valOrlistOfPairs  // << is this relevant?
       return listOfPairs.concat([[head, appendNestedValue([], [rest, fieldValue])]])
     }
 
