@@ -15,10 +15,22 @@ const appendNestedValue = (listOfPairs = [], [fieldPath, fieldValue]) => {
   })
 
   if (indexOfHead > -1) {
-    // head of path already in list, concat to its valOrlistOfPairs
-    const exist = listOfPairs[indexOfHead]
-    rest.push(fieldValue)
-    listOfPairs[indexOfHead] = [exist[0], exist[1].concat([rest])]
+    // head of path already in list, concat our new pair
+    const [head, valOrlistOfPairs] = listOfPairs[indexOfHead]
+
+    if (rest.length === 0) {
+      // have final value, concat this pair
+      return listOfPairs.concat([[head, fieldValue]])
+    }
+
+
+    if (Array.isArray(valOrlistOfPairs)) {
+      listOfPairs[indexOfHead] = [head, appendNestedValue(valOrlistOfPairs, [rest, fieldValue])]
+      return listOfPairs
+    } else {
+      const val = valOrlistOfPairs  // << where is this relevant?
+      return listOfPairs.concat([[head, appendNestedValue([], [rest, fieldValue])]])
+    }
 
     return listOfPairs
   } else {
@@ -27,8 +39,8 @@ const appendNestedValue = (listOfPairs = [], [fieldPath, fieldValue]) => {
       // we are at bottom level so add pair
       return listOfPairs.concat([[head, fieldValue]])
     } else {
-      rest.push(fieldValue)
-      return listOfPairs.concat([[head, [rest]]])
+      // append the next nested pair
+      return listOfPairs.concat([[head, appendNestedValue([], [rest, fieldValue])]])
     }
   }
 }

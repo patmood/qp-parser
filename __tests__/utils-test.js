@@ -52,6 +52,33 @@ describe('appendNestedValue', () => {
 
     expect(actual).toEqual(expected)
   })
+
+  it('adds deep nested pairs to listOfPairs for new head', () => {
+    const listOfPairs = []
+    const flatPair = [['a', 'b', 'c'], 'd']
+    const actual = Utils.appendNestedValue(listOfPairs, flatPair)
+    const expected = [['a', [['b',[['c', 'd']]]]]]
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('adds deep nested pairs to listOfPairs to existing head', () => {
+    const listOfPairs = [['a', [['b',[['c', 'd']]]]]]
+    const flatPair = [['a', 'b', 'g'], 'h']
+    const actual = Utils.appendNestedValue(listOfPairs, flatPair)
+    const expected = [['a', [['b',[['c', 'd'], ['g', 'h']]]]]]
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('doesnt replace existing keys', () => {
+    const listOfPairs = [['a', [['b', 'c']]]]
+    const flatPair = [['a', 'b'], 'f']
+    const actual = Utils.appendNestedValue(listOfPairs, flatPair)
+    const expected = [['a', [['b','c'], ['b', 'f']]]]
+
+    expect(actual).toEqual(expected)
+  })
 })
 
 describe('pairListToObject', () => {
