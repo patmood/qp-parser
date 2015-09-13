@@ -66,4 +66,35 @@ describe('parse', () => {
     expect(actual).toEqual(expectedReturn)
     expect(debugStore).toEqual(expectedDebug)
   })
+
+  it('deep nested pair', () => {
+    const given = 'a[b][c]=d'
+    const expectedReturn = {a: {b: {c: 'd'}}}
+    const expectedDebug = [
+      ['delimited pairs', ['a[b][c]=d'] ],
+      ['split pairs', [['a[b][c]','d']] ],
+      ['parse keys', [[['a','b', 'c'], 'd']] ],
+      ['flat to nested', [['a', [['b', [['c', 'd']]]]]] ]
+    ]
+
+    const actual = parse(given, debug)
+    expect(actual).toEqual(expectedReturn)
+    expect(debugStore).toEqual(expectedDebug)
+  })
+
+  it('multiple deep nested coliding pairs', () => {
+    const given = 'a[b][c]=d&a[b]=x'
+    const expectedReturn = {a: {b: 'x'}}
+    const expectedDebug = [
+      ['delimited pairs', ['a[b][c]=d', 'a[b]=x'] ],
+      ['split pairs', [['a[b][c]','d'], ['a[b]', 'x']] ],
+      ['parse keys', [[['a','b', 'c'], 'd'], [['a', 'b'], 'x']] ],
+      ['flat to nested', [['a', [['b', [['c', 'd']]], ['b', 'x']]]] ]
+    ]
+
+    const actual = parse(given, debug)
+    expect(actual).toEqual(expectedReturn)
+    expect(debugStore).toEqual(expectedDebug)
+  })
+
 })
