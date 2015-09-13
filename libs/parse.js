@@ -26,10 +26,7 @@ const parse = function(qs, debug) {
   debug('flat to nested', pairs)
 
   // [['a', [['b', 'c']]]] -> {a: [b: 'c']}
-  return pairs.reduce((memo, [fieldKey, fieldValue]) => {
-    memo[fieldKey] = fieldValue
-    return memo
-  }, {})
+  return Utils.pairListToObject(pairs)
 }
 
 module.exports = parse

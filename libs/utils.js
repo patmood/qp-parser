@@ -35,7 +35,11 @@ const appendNestedValue = (listOfPairs = [], [fieldPath, fieldValue]) => {
 
 const pairListToObject = (pairList) => {
   return pairList.reduce((memo, [fieldKey, fieldValue]) => {
-    memo[fieldKey] = fieldValue
+    if (Array.isArray(fieldValue)) {
+      memo[fieldKey] = pairListToObject(fieldValue)
+    } else {
+      memo[fieldKey] = fieldValue
+    }
     return memo
   }, {})
 }

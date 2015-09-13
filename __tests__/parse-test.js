@@ -63,7 +63,7 @@ describe('parse', () => {
     ]
 
     const actual = parse(given, debug)
-    // expect(actual).toEqual(expectedReturn)
+    expect(actual).toEqual(expectedReturn)
     expect(debugStore).toEqual(expectedDebug)
   })
 })

@@ -55,10 +55,42 @@ describe('appendNestedValue', () => {
 })
 
 describe('pairListToObject', () => {
-  it('simple pair', () => {
+  it('single un-nested', () => {
     const given = [['a', 'b']]
     const actual = Utils.pairListToObject(given)
     const expected = {a: 'b'}
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('multiple un-nested', () => {
+    const given = [['a', 'b'], ['c', 'd']]
+    const actual = Utils.pairListToObject(given)
+    const expected = {a: 'b', c: 'd'}
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('single nested', () => {
+    const given = [['a', [['b', 'c']]]]
+    const actual = Utils.pairListToObject(given)
+    const expected = {a: {b: 'c'}}
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('multiple nested pairs', () => {
+    const given = [['a', [['b', 'c'], ['d', 'e']]]]
+    const actual = Utils.pairListToObject(given)
+    const expected = {a: {b: 'c', d: 'e'}}
+
+    expect(actual).toEqual(expected)
+  })
+
+  it('multiple nested top level pairs', () => {
+    const given = [['a', [['b', 'c']]], ['b', [['f','g']]]]
+    const actual = Utils.pairListToObject(given)
+    const expected = {a: {b: 'c'}, b: {f: 'g'}}
 
     expect(actual).toEqual(expected)
   })
