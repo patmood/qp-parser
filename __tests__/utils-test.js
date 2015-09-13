@@ -94,4 +94,12 @@ describe('pairListToObject', () => {
 
     expect(actual).toEqual(expected)
   })
+
+  it('multiple deep nested', () => {
+    const given = [['a', [['b', [['c', 'd']]]]]]
+    const actual = Utils.pairListToObject(given)
+    const expected = {a: {b: {c: 'd'}}}
+
+    expect(actual).toEqual(expected)
+  })
 })
