@@ -76,11 +76,11 @@ const pairListToObjectIterative = (pairList) => {
   }, {})
 }
 
-const objectToArray = (obj) => {
+const objectToPairs = (obj) => {
   let pairs = []
   for(let key in obj) {
     if (typeof obj[key] === 'object') {
-      pairs = pairs.concat([[key, objectToArray(obj[key])]])
+      pairs = pairs.concat([[key, objectToPairs(obj[key])]])
     } else {
       pairs = pairs.concat([[key, obj[key]]])
     }
@@ -93,5 +93,5 @@ module.exports = {
   appendNestedValue: appendNestedValue,
   pairListToObject: pairListToObject,
   pairListToObjectIterative: pairListToObjectIterative,
-  objectToArray: objectToArray
+  objectToPairs: objectToPairs
 }

@@ -8,7 +8,7 @@ const serialize = function(queryObject, debug) {
 
   let qs
 
-  let pairs = Utils.objectToArray(queryObject)
+  let pairs = Utils.objectToPairs(queryObject)
   debug('pairs', pairs)
 
   pairs = pairs.map(([key, value]) => {
