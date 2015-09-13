@@ -139,3 +139,41 @@ describe('pairListToObject', () => {
     expect(actual).toEqual(expected)
   })
 })
+
+describe('pairListToObjectIterative', () => {
+  it('un-nested pair into object', () => {
+    const given = [[['a'], 'b']]
+    const actual = Utils.pairListToObjectIterative(given)
+    const expected = {a: 'b'}
+    expect(actual).toEqual(expected)
+  })
+
+  it('multiple un-nested pairs into object', () => {
+    const given = [[['a'],'b'], [['c'], 'd']]
+    const actual = Utils.pairListToObjectIterative(given)
+    const expected = {a: 'b', c: 'd'}
+    expect(actual).toEqual(expected)
+  })
+
+  it('nested pair into object', () => {
+    const given = [[['a','b'], 'c']]
+    const actual = Utils.pairListToObjectIterative(given)
+    const expected = {a: {b: 'c'}}
+    expect(actual).toEqual(expected)
+  })
+
+  it('deep nested pair into object', () => {
+    const given = [[['a','b', 'c'], 'd']]
+    const actual = Utils.pairListToObjectIterative(given)
+    const expected = {a: {b: {c: 'd'}}}
+    expect(actual).toEqual(expected)
+  })
+
+
+  it('multiple coliding nested pairs into object', () => {
+    const given = [[['a','b', 'c'], 'd'], [['a', 'b'], 'x']]
+    const actual = Utils.pairListToObjectIterative(given)
+    const expected = {a: {b: 'x'}}
+    expect(actual).toEqual(expected)
+  })
+})

@@ -56,8 +56,29 @@ const pairListToObject = (pairList) => {
   }, {})
 }
 
+const pairListToObjectIterative = (pairList) => {
+  return pairList.reduce((memo, [path, value]) => {
+    let nested = memo
+
+    path.forEach((key, i) => {
+      if (i === path.length - 1) {
+        // Save/overwrite value when at the end of the path
+        nested[key] = value
+      } else {
+        // Get existing value or create new object at this key
+        nested[key] = nested[key] || {}
+      }
+      // Save reference to the value at this key for next iteration
+      nested = nested[key]
+    })
+
+    return memo
+  }, {})
+}
+
 module.exports = {
   parseKey: parseKey,
   appendNestedValue: appendNestedValue,
-  pairListToObject: pairListToObject
+  pairListToObject: pairListToObject,
+  pairListToObjectIterative: pairListToObjectIterative
 }
