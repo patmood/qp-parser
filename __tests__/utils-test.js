@@ -27,7 +27,6 @@ describe('parseKey', () => {
 })
 
 describe('appendNestedValue', () => {
-  // ([], [['a'], 'b']) -> [['a', [['b']]]]
   it('handles un-nested', () => {
     const listOfPairs = []
     const flatPair = [['a'], 'b']
@@ -37,7 +36,6 @@ describe('appendNestedValue', () => {
     expect(actual).toEqual(expected)
   })
 
-  // ([], [['a', 'b'], 'c']) -> [['a', [['b', 'c']]]]
   it('adds a new single pair', () => {
     const given = [['a', 'b'], 'c']
     const actual = Utils.appendNestedValue([], given)
@@ -46,12 +44,21 @@ describe('appendNestedValue', () => {
     expect(actual).toEqual(expected)
   })
 
-  // ([['a', [['b', 'c']]]], [['a, 'e'], f]) -> [['a', [ ['b','c'], ['e','f'] ]]]
   it('adds to listOfPairs for existing head', () => {
     const listOfPairs = [['a', [['b', 'c']]]]
     const flatPair = [['a', 'e'], 'f']
     const actual = Utils.appendNestedValue(listOfPairs, flatPair)
     const expected = [['a', [ ['b','c'], ['e','f'] ]]]
+
+    expect(actual).toEqual(expected)
+  })
+})
+
+describe('pairListToObject', () => {
+  it('simple pair', () => {
+    const given = [['a', 'b']]
+    const actual = Utils.pairListToObject(given)
+    const expected = {a: 'b'}
 
     expect(actual).toEqual(expected)
   })

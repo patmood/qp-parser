@@ -31,10 +31,17 @@ const appendNestedValue = (listOfPairs = [], [fieldPath, fieldValue]) => {
       return listOfPairs.concat([[head, [rest]]])
     }
   }
+}
 
+const pairListToObject = (pairList) => {
+  return pairList.reduce((memo, [fieldKey, fieldValue]) => {
+    memo[fieldKey] = fieldValue
+    return memo
+  }, {})
 }
 
 module.exports = {
   parseKey: parseKey,
-  appendNestedValue: appendNestedValue
+  appendNestedValue: appendNestedValue,
+  pairListToObject: pairListToObject
 }
