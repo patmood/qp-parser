@@ -22,4 +22,40 @@ describe('serialize', () => {
     expect(debugStore).toEqual(expectedDebug)
   })
 
+  it('single pair', () => {
+    const given = {a: 'b'}
+    const expectedReturn = 'a=b'
+    const expectedDebug = [
+      ['pairs', [['a', 'b']] ]
+    ]
+
+    const actual = serialize(given, debug)
+    expect(actual).toEqual(expectedReturn)
+    expect(debugStore).toEqual(expectedDebug)
+  })
+
+  it('multiple pairs', () => {
+    const given = {a: 'b', c: 'd'}
+    const expectedReturn = 'a=b&c=d'
+    const expectedDebug = [
+      ['pairs', [['a', 'b'], ['c', 'd']] ]
+    ]
+
+    const actual = serialize(given, debug)
+    expect(actual).toEqual(expectedReturn)
+    expect(debugStore).toEqual(expectedDebug)
+  })
+
+  xit('nested pair', () => {
+    const given = {a: {b: 'c'}}
+    const expectedReturn = 'a[b]=c'
+    const expectedDebug = [
+      ['pairs', [['a', 'b']] ]
+    ]
+
+    const actual = serialize(given, debug)
+    expect(actual).toEqual(expectedReturn)
+    expect(debugStore).toEqual(expectedDebug)
+  })
+
 })

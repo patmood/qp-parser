@@ -177,3 +177,40 @@ describe('pairListToObjectIterative', () => {
     expect(actual).toEqual(expected)
   })
 })
+
+describe('objectToArray', () => {
+  it('single key', () => {
+    const given = {a: 'b'}
+    const actual = Utils.objectToArray(given)
+    const expected = [['a', 'b']]
+    expect(actual).toEqual(expected)
+  })
+
+  it('multiple keys', () => {
+    const given = {a: 'b', c: 'd'}
+    const actual = Utils.objectToArray(given)
+    const expected = [['a', 'b'], ['c', 'd']]
+    expect(actual).toEqual(expected)
+  })
+
+  it('nested key', () => {
+    const given = {a: {b: 'c'}}
+    const actual = Utils.objectToArray(given)
+    const expected = [['a', [['b', 'c']]]]
+    expect(actual).toEqual(expected)
+  })
+
+  it('multiple nested keys', () => {
+    const given = {a: {b: 'c', d: 'e'}}
+    const actual = Utils.objectToArray(given)
+    const expected = [['a', [['b', 'c'], ['d', 'e']]]]
+    expect(actual).toEqual(expected)
+  })
+
+  it('deep nested keys', () => {
+    const given = {a: {b: {c: 'd'}}}
+    const actual = Utils.objectToArray(given)
+    const expected = [['a', [['b', [['c', 'd']]]]]]
+    expect(actual).toEqual(expected)
+  })
+})
