@@ -92,26 +92,31 @@ const objectToPairs = (obj) => {
 // ([], ['a', [['b','c']]], []) -> [[['a', 'b'], 'c']]
 //    ([], ['b','c'], ['a']) -> [[['a','b'], 'c']]
 
-// ['a', [['b', [['c', 'd']]]]] -> [[['a', 'b', 'c'], 'd']]
 const nestedToFlatPairs = (flatPairs = [], [fieldKey, valOrListOfPairs], path = []) => {
+    console.log('PATH', path);
+    console.log('key', fieldKey);
+    console.log('val', valOrListOfPairs);
     if (Array.isArray(valOrListOfPairs)) {
       const listOfPairs = valOrListOfPairs
-      path = path.concat([fieldKey])
 
       let [head, ...rest] = listOfPairs
 
-      if (rest.length === 0) {
+      console.log('====recurse====');
+      console.log('HEAD', head);
+      console.log('REST', rest);
 
-        return flatPairs.concat(nestedToFlatPairs(flatPairs, head, path))
+      if (rest.length === 0) {
+        return flatPairs.concat(nestedToFlatPairs([], head, path.concat([fieldKey])))
       } else {
-        // more pairs for this path
+        flatPairs = flatPairs.concat(nestedToFlatPairs([], head, path.concat([fieldKey])))
+        return flatPairs.concat(nestedToFlatPairs([], [fieldKey, rest], path))
       }
 
       return flatPairs.concat([[fieldKey, nestedToFlatPairs([], listOfPairs)]])
     } else {
+      console.log('====base====');
       const val = valOrListOfPairs
-      path = path.concat([fieldKey])
-      return flatPairs.concat([[path, val]])
+      return flatPairs.concat([[path.concat([fieldKey]), val]])
     }
 }
 
