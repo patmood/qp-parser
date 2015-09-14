@@ -216,7 +216,7 @@ describe('objectToPairs', () => {
 })
 
 describe('nestedToFlatPairs', () => {
-  xit('single pair', () => {
+  it('single pair', () => {
     const nestedPair = ['a', 'b']
     const flatPairs = []
     const actual = Utils.nestedToFlatPairs(flatPairs, nestedPair)
@@ -224,7 +224,7 @@ describe('nestedToFlatPairs', () => {
     expect(actual).toEqual(expected)
   })
 
-  xit('nested pair', () => {
+  it('nested pair', () => {
     const nestedPair = ['a', [['b','c']]]
     const flatPairs = []
     const actual = Utils.nestedToFlatPairs(flatPairs, nestedPair)
@@ -232,7 +232,7 @@ describe('nestedToFlatPairs', () => {
     expect(actual).toEqual(expected)
   })
 
-  xit('deep nested pair', () => {
+  it('deep nested pair', () => {
     const nestedPair = ['a', [['b',[['c', 'd']]]]]
     const flatPairs = []
     const actual = Utils.nestedToFlatPairs(flatPairs, nestedPair)
@@ -245,6 +245,14 @@ describe('nestedToFlatPairs', () => {
     const flatPairs = []
     const actual = Utils.nestedToFlatPairs(flatPairs, nestedPair)
     const expected = [[['a', 'b'], 'c'], [['a', 'd'], 'e']]
+    expect(actual).toEqual(expected)
+  })
+
+  it('add to existing list', () => {
+    const nestedPair = ['a', [['b','c'], ['d', 'e']]]
+    const flatPairs = [[['a'], 'b']]
+    const actual = Utils.nestedToFlatPairs(flatPairs, nestedPair)
+    const expected = [[['a'], 'b'], [['a', 'b'], 'c'], [['a', 'd'], 'e']]
     expect(actual).toEqual(expected)
   })
 })
