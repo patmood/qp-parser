@@ -31,8 +31,6 @@ const appendNestedValue = (listOfPairs = [], [fieldPath, fieldValue]) => {
       const val = valOrlistOfPairs  // << is this relevant?
       return listOfPairs.concat([[head, appendNestedValue([], [rest, fieldValue])]])
     }
-
-    return listOfPairs
   } else {
     // head of path not in list, concat to parent list
     if (rest.length === 0) {
@@ -79,11 +77,9 @@ const pairListToObjectIterative = (pairList) => {
 const objectToPairs = (obj) => {
   let pairs = []
   for(let key in obj) {
-    if (typeof obj[key] === 'object') {
-      pairs = pairs.concat([[key, objectToPairs(obj[key])]])
-    } else {
-      pairs = pairs.concat([[key, obj[key]]])
-    }
+    pairs = typeof obj[key] === 'object'
+      ? pairs.concat([[key, objectToPairs(obj[key])]])
+      : pairs.concat([[key, obj[key]]])
   }
   return pairs
 }
