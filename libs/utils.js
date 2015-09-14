@@ -88,10 +88,38 @@ const objectToPairs = (obj) => {
   return pairs
 }
 
+// ([], ['a', 'b'], []) -> [[['a'], 'b']]
+// ([], ['a', [['b','c']]], []) -> [[['a', 'b'], 'c']]
+//    ([], ['b','c'], ['a']) -> [[['a','b'], 'c']]
+
+// ['a', [['b', [['c', 'd']]]]] -> [[['a', 'b', 'c'], 'd']]
+const nestedToFlatPairs = (flatPairs = [], [fieldKey, valOrListOfPairs], path = []) => {
+    if (Array.isArray(valOrListOfPairs)) {
+      const listOfPairs = valOrListOfPairs
+      path = path.concat([fieldKey])
+
+      let [head, ...rest] = listOfPairs
+
+      if (rest.length === 0) {
+
+        return flatPairs.concat(nestedToFlatPairs(flatPairs, head, path))
+      } else {
+        // more pairs for this path
+      }
+
+      return flatPairs.concat([[fieldKey, nestedToFlatPairs([], listOfPairs)]])
+    } else {
+      const val = valOrListOfPairs
+      path = path.concat([fieldKey])
+      return flatPairs.concat([[path, val]])
+    }
+}
+
 module.exports = {
   parseKey: parseKey,
   appendNestedValue: appendNestedValue,
   pairListToObject: pairListToObject,
   pairListToObjectIterative: pairListToObjectIterative,
-  objectToPairs: objectToPairs
+  objectToPairs: objectToPairs,
+  nestedToFlatPairs: nestedToFlatPairs
 }

@@ -9,7 +9,7 @@ const serialize = function(queryObject, debug) {
   let qs
 
   let pairs = Utils.objectToPairs(queryObject)
-  debug('pairs', pairs)
+  debug('nested pairs', pairs)
 
   pairs = pairs.map(([key, value]) => {
     return `${key}=${value}`
