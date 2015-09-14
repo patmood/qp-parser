@@ -11,8 +11,11 @@ const serialize = function(queryObject, debug) {
   let pairs = Utils.objectToPairs(queryObject)
   debug('nested pairs', pairs)
 
-  pairs = pairs.map(([key, value]) => {
-    return `${key}=${value}`
+  pairs = pairs.reduce(Utils.nestedToFlatPairs, [])
+  debug('flat pairs', pairs)
+
+  pairs = pairs.map(([path, value]) => {
+    return `${path.join('][').replace(/]/, '') + ']'}=${value}`
   })
 
   qs = pairs.join('&')

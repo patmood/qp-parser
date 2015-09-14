@@ -88,16 +88,16 @@ const objectToPairs = (obj) => {
 // ([], ['a', [['b','c']]], []) -> [[['a', 'b'], 'c']]
 //    ([], ['b','c'], ['a']) -> [[['a','b'], 'c']]
 
-const nestedToFlatPairs = (flatPairs = [], [fieldKey, valOrListOfPairs], path = []) => {
+const nestedToFlatPairs = (flatPairs = [], [fieldKey, valOrListOfPairs], _index, _arr, path = []) => {
     if (Array.isArray(valOrListOfPairs)) {
       const listOfPairs = valOrListOfPairs
       let [head, ...rest] = listOfPairs
 
-      flatPairs = flatPairs.concat(nestedToFlatPairs([], head, path.concat([fieldKey])))
+      flatPairs = flatPairs.concat(nestedToFlatPairs([], head, _index, _arr, path.concat([fieldKey])))
 
       return rest.length === 0
         ? flatPairs
-        : flatPairs.concat(nestedToFlatPairs([], [fieldKey, rest], path))
+        : flatPairs.concat(nestedToFlatPairs([], [fieldKey, rest], _index, _arr, path))
     } else {
       const val = valOrListOfPairs
       return flatPairs.concat([[path.concat([fieldKey]), val]])

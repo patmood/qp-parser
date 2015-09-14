@@ -26,7 +26,8 @@ describe('serialize', () => {
     const given = {a: 'b'}
     const expectedReturn = 'a=b'
     const expectedDebug = [
-      ['nested pairs', [['a', 'b']] ]
+      ['nested pairs', [['a', 'b']] ],
+      ['flat pairs', [[['a'], 'b']]]
     ]
 
     const actual = serialize(given, debug)
@@ -38,7 +39,8 @@ describe('serialize', () => {
     const given = {a: 'b', c: 'd'}
     const expectedReturn = 'a=b&c=d'
     const expectedDebug = [
-      ['nested pairs', [['a', 'b'], ['c', 'd']] ]
+      ['nested pairs', [['a', 'b'], ['c', 'd']] ],
+      ['flat pairs', [[['a'], 'b'], [['c'], 'd']] ]
     ]
 
     const actual = serialize(given, debug)
@@ -46,11 +48,12 @@ describe('serialize', () => {
     expect(debugStore).toEqual(expectedDebug)
   })
 
-  xit('nested pair', () => {
+  it('nested pair', () => {
     const given = {a: {b: 'c'}}
     const expectedReturn = 'a[b]=c'
     const expectedDebug = [
-      ['nested pairs', [['a', [['b', 'c']]]] ]
+      ['nested pairs', [['a', [['b', 'c']]]] ],
+      ['flat pairs', [[['a', 'b'], 'c']]  ]
     ]
 
     const actual = serialize(given, debug)
