@@ -1,4 +1,4 @@
-'use strict'
+/* global jest, it, expect, describe */
 jest.autoMockOff()
 const parseIterative = require('../libs/parse_iterative')
 

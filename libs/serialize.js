@@ -1,4 +1,4 @@
-'use strict'
+
 const noop = () => {}
 
 const Utils = require('./utils')
@@ -24,3 +24,19 @@ const serialize = function(queryObject, debug = noop) {
 }
 
 module.exports = serialize
+
+//
+// const serializeFlow = (queryObject, debug = debug) => {
+//   // guard
+//   flow(
+//     objectToPairs,
+//     tap( item => debug('nested pairs', item) ),
+//     nestedToFlatPairs,
+//     flatPairsToQs
+//   )(queryObject)
+// }
+//
+// const tap (fn) => (item) => {
+//   fn(item)
+//   return item
+// }

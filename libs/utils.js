@@ -1,7 +1,5 @@
-'use strict'
-
 // 'a[b][c]' -> ['a', 'b', 'c']
-const parseKey = (key) => {
+export const parseKey = (key) => {
   return key.replace(/]/g, '').split('[')
 }
 

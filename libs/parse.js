@@ -1,9 +1,9 @@
-'use strict'
+
 const noop = () => {}
 
 const Utils = require('./utils')
 
-const parse = function(qs, debug = noop) {
+export const parse = function(qs, debug = noop) {
   if (!qs) return {}
   // 'a[b]=c&c=d' -> ['a[b]=c', 'c=d']
   let pairs = qs.split('&')
@@ -29,4 +29,5 @@ const parse = function(qs, debug = noop) {
   return Utils.pairListToObject(pairs)
 }
 
+export default parse
 module.exports = parse

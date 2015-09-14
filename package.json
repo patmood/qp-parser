@@ -4,8 +4,10 @@
   "description": "Parse and serialize query strings",
   "main": "libs/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "standard"
   },
+  "engines": "^4.0.0",
   "repository": {
     "type": "git",
     "url": "git@github.com:patmood/qs-parser.git"
@@ -14,11 +16,19 @@
   "license": "ISC",
   "devDependencies": {
     "babel-jest": "^5.3.0",
-    "jest-cli": "^0.5.4"
+    "jest-cli": "^0.5.4",
+    "standard": "^5.2.2"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testFileExtensions": ["es6", "js"],
-    "moduleFileExtensions": ["js", "json", "es6"]
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6"
+    ]
   }
 }

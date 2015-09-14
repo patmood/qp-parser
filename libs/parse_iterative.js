@@ -1,4 +1,4 @@
-'use strict'
+
 const noop = () => {}
 
 const Utils = require('./utils')
