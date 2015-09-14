@@ -15,7 +15,7 @@ const serialize = function(queryObject, debug) {
   debug('flat pairs', pairs)
 
   pairs = pairs.map(([path, value]) => {
-    return `${path.join('][').replace(/]/, '') + ']'}=${value}`
+    return `${Utils.arrayPathToString(path)}=${value}`
   })
 
   qs = pairs.join('&')

@@ -104,11 +104,18 @@ const nestedToFlatPairs = (flatPairs = [], [fieldKey, valOrListOfPairs], _index,
     }
 }
 
+const arrayPathToString = (arrayPath) => {
+  return arrayPath.length === 1
+    ? arrayPath[0].toString()
+    : arrayPath.join('][').replace(/]/, '') + ']'
+}
+
 module.exports = {
   parseKey: parseKey,
   appendNestedValue: appendNestedValue,
   pairListToObject: pairListToObject,
   pairListToObjectIterative: pairListToObjectIterative,
   objectToPairs: objectToPairs,
-  nestedToFlatPairs: nestedToFlatPairs
+  nestedToFlatPairs: nestedToFlatPairs,
+  arrayPathToString: arrayPathToString
 }
