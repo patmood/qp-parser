@@ -3,7 +3,7 @@ const noop = () => {}
 
 const Utils = require('./utils')
 
-const serialize = function(queryObject, debug) {
+const serialize = function(queryObject, debug = noop) {
   if (Object.keys(queryObject).length === 0) return ''
 
   let qs
