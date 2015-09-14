@@ -61,4 +61,16 @@ describe('serialize', () => {
     expect(debugStore).toEqual(expectedDebug)
   })
 
+  it('complex nested pair', () => {
+    const given = {a: {b: 'c', d: {e: 'f'}}}
+    const expectedReturn = 'a[b]=c&a[d][e]=f'
+    const expectedDebug = [
+      ['nested pairs', [['a', [['b', 'c'], ['d', [['e', 'f']]]]]] ],
+      ['flat pairs', [[['a', 'b'], 'c'], [['a', 'd', 'e'], 'f']]  ]
+    ]
+
+    const actual = serialize(given, debug)
+    expect(actual).toEqual(expectedReturn)
+    expect(debugStore).toEqual(expectedDebug)
+  })
 })
