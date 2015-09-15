@@ -108,6 +108,10 @@ const arrayPathToString = (arrayPath) => {
     : arrayPath.join('][').replace(/]/, '') + ']'
 }
 
+const splitPair = (pair) => {
+  return pair.match(/(.+)=(.+)$/).slice(1,3)
+}
+
 module.exports = {
   parseKey: parseKey,
   appendNestedValue: appendNestedValue,
@@ -115,5 +119,6 @@ module.exports = {
   pairListToObjectIterative: pairListToObjectIterative,
   objectToPairs: objectToPairs,
   nestedToFlatPairs: nestedToFlatPairs,
-  arrayPathToString: arrayPathToString
+  arrayPathToString: arrayPathToString,
+  splitPair: splitPair
 }

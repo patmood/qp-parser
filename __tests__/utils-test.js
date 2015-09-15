@@ -257,3 +257,10 @@ describe('nestedToFlatPairs', () => {
     expect(actual).toEqual(expected)
   })
 })
+
+describe('splitPair', () => {
+  it('unencoded equal symbol in nested key', () => {
+    const actual = Utils.splitPair('a[>=]=23')
+    expect(actual).toEqual(['a[>=]', '23'])
+  })
+})

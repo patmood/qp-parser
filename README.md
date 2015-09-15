@@ -10,3 +10,4 @@ Not for production use
 
 # Notes
 - separate test data from test runner (only possible when not using OO code)
+- use TAPE test framework to standardize 

@@ -10,10 +10,14 @@ export const parse = function(qs, debug = noop) {
   debug('delimited pairs', pairs)
 
   // ['a[b]=c', 'c=d'] -> [['a[b]', 'c'], ['c', 'd']]
-  pairs = pairs.map((pair) => {
-    return pair.split('=')
-  })
+  pairs = pairs.map(Utils.splitPair)
   debug('split pairs', pairs)
+
+  // Decode strings
+  pairs = pairs.map(([key, val]) => {
+    val = val.replace(/\+/g, ' ')
+    return [decodeURIComponent(key), decodeURIComponent(val)]
+  })
 
   // [['a[b]', 'c'], ['c', 'd']] -> [[['a', 'b'], 'c'], ['c, 'd']]
   pairs = pairs.map(([fieldKey, fieldValue]) => {

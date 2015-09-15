@@ -98,4 +98,61 @@ describe('parse', () => {
     expect(debugStore).toEqual(expectedDebug)
   })
 
+  it('number key pair', () => {
+    const given = '0=foo'
+    const expectedReturn = {'0': 'foo'}
+
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
+  it('values with + symbols', () => {
+    const given = 'foo=c++'
+    const expectedReturn = {'foo': 'c  '}
+
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
+  it('encoded = symbols', () => {
+    const given = 'he%3Dllo=th%3Dere'
+    const expectedReturn = { 'he=llo': 'th=ere' }
+
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
+  xit('un encoded symbols', () => {
+    const given = 'a[>=]=23'
+    const expectedReturn = { a: { '>=': '23' }}
+
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
 })
+
+//
+// 'a[>=]=23' -> { a: { '>=': '23' }}
+// ​
+// 'a[<=>]==23' -> { a: { '<=>': '=23' }});
+// ​
+// 'a[==]=23' -> { a: { '==': '23' }});
+// ​
+// 'foo' -> { foo: '' });
+// ​
+// 'foo=bar' -> { foo: 'bar' });
+// ​
+// 'foo=bar=baz' -> { foo: 'bar=baz' });  // split on firt equal unless in bracket
+// ​
+// 'foo=bar&bar=baz' -> { foo: 'bar', bar: 'baz' });
+// ​
+// 'foo=bar&baz' -> { foo: 'bar', baz: '' });
+// ​
+// 'cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World' -> {
+//       cht: 'p3'
+//     , chd: 't:60,40'
+//     , chs: '250x100'
+//     , chl: 'Hello|World'
+//   }
+// ^^ all valid, not escaped
