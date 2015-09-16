@@ -165,19 +165,30 @@ describe('parse', () => {
     expect(actual).toEqual(expectedReturn)
   })
 
+  it('multiple simple key values', () => {
+    const given = 'foo=bar&bar=baz'
+    const expectedReturn = { foo: 'bar', bar: 'baz'}
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
+  it('multiple keys one value', () => {
+    const given = 'foo=bar&bar'
+    const expectedReturn = { foo: 'bar', bar: ''}
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
+  it('ultimate complex qs', () => {
+    const given = 'cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World'
+    const expectedReturn = {
+        cht: 'p3',
+        chd: 't:60,40',
+        chs: '250x100',
+        chl: 'Hello|World'
+      }
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
 })
-
-
-// ​
-// ​
-// 'foo=bar&bar=baz' -> { foo: 'bar', bar: 'baz' });
-// ​
-// 'foo=bar&baz' -> { foo: 'bar', baz: '' });
-// ​
-// 'cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World' -> {
-//       cht: 'p3'
-//     , chd: 't:60,40'
-//     , chs: '250x100'
-//     , chl: 'Hello|World'
-//   }
-// ^^ all valid, not escaped

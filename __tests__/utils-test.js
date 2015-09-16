@@ -290,17 +290,3 @@ describe('splitPair', () => {
   })
 
 })
-
-
-// ​
-// 'foo=bar&bar=baz' -> { foo: 'bar', bar: 'baz' });
-// ​
-// 'foo=bar&baz' -> { foo: 'bar', baz: '' });
-// ​
-// 'cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World' -> {
-//       cht: 'p3'
-//     , chd: 't:60,40'
-//     , chs: '250x100'
-//     , chl: 'Hello|World'
-//   }
-// ^^ all valid, not escaped
