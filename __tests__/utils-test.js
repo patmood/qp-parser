@@ -284,12 +284,14 @@ describe('splitPair', () => {
     expect(actual).toEqual(['foo', 'bar'])
   })
 
+  it('split on first equal unless in bracket', () => {
+    const actual = Utils.splitPair('foo=bar=baz')
+    expect(actual).toEqual(['foo', 'bar=baz'])
+  })
+
 })
 
 
-//
-// ​
-// 'foo=bar=baz' -> { foo: 'bar=baz' });  // split on firt equal unless in bracket
 // ​
 // 'foo=bar&bar=baz' -> { foo: 'bar', bar: 'baz' });
 // ​

@@ -158,12 +158,17 @@ describe('parse', () => {
     expect(actual).toEqual(expectedReturn)
   })
 
+  it('split on first equal unless in bracket', () => {
+    const given = 'foo=bar=baz'
+    const expectedReturn = { foo: 'bar=baz'}
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
 })
 
 
 // ​
-// ​
-// 'foo=bar=baz' -> { foo: 'bar=baz' });  // split on firt equal unless in bracket
 // ​
 // 'foo=bar&bar=baz' -> { foo: 'bar', bar: 'baz' });
 // ​

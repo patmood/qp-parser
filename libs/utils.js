@@ -112,7 +112,7 @@ const splitPair = (pair) => {
   if (pair.match(/^(\w+)$/)) {
     return [pair, '']
   } else {
-    const match = pair.match(/^([^\[]+|.+\[.+\])=(.+)$/)
+    const match = pair.match(/^([^\=[]+|.+\[.+\])=(.+)$/)
     return match.slice(1,3)
 
   }
