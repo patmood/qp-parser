@@ -109,7 +109,13 @@ const arrayPathToString = (arrayPath) => {
 }
 
 const splitPair = (pair) => {
-  return pair.match(/(.+)=(.+)$/).slice(1,3)
+  if (pair.match(/^(\w+)$/)) {
+    return [pair, '']
+  } else {
+    const match = pair.match(/^([^\[]+|.+\[.+\])=(.+)$/)
+    return match.slice(1,3)
+
+  }
 }
 
 module.exports = {

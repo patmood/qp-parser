@@ -122,7 +122,7 @@ describe('parse', () => {
     expect(actual).toEqual(expectedReturn)
   })
 
-  xit('un encoded symbols', () => {
+  it('un encoded symbols', () => {
     const given = 'a[>=]=23'
     const expectedReturn = { a: { '>=': '23' }}
 
@@ -130,18 +130,38 @@ describe('parse', () => {
     expect(actual).toEqual(expectedReturn)
   })
 
+  it('equal sign in value', () => {
+    const given = 'a[<=>]==23'
+    const expectedReturn = { a: { '<=>': '=23' }}
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
+  it('unencoded equal in nested key', () => {
+    const given = 'a[==]=23'
+    const expectedReturn = { a: { '==': '23' }}
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
+  it('single key no value', () => {
+    const given = 'foo'
+    const expectedReturn = { foo: ''}
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
+  it('simple key value', () => {
+    const given = 'foo=bar'
+    const expectedReturn = { foo: 'bar'}
+    const actual = parse(given)
+    expect(actual).toEqual(expectedReturn)
+  })
+
 })
 
-//
-// 'a[>=]=23' -> { a: { '>=': '23' }}
+
 // ​
-// 'a[<=>]==23' -> { a: { '<=>': '=23' }});
-// ​
-// 'a[==]=23' -> { a: { '==': '23' }});
-// ​
-// 'foo' -> { foo: '' });
-// ​
-// 'foo=bar' -> { foo: 'bar' });
 // ​
 // 'foo=bar=baz' -> { foo: 'bar=baz' });  // split on firt equal unless in bracket
 // ​

@@ -263,4 +263,42 @@ describe('splitPair', () => {
     const actual = Utils.splitPair('a[>=]=23')
     expect(actual).toEqual(['a[>=]', '23'])
   })
+
+  it('equal sign in value', () => {
+    const actual = Utils.splitPair('a[<=>]==23')
+    expect(actual).toEqual(['a[<=>]', '=23'])
+  })
+
+  it('unencoded equal in nested key', () => {
+    const actual = Utils.splitPair('a[==]=23')
+    expect(actual).toEqual(['a[==]', '23'])
+  })
+
+  it('no value', () => {
+    const actual = Utils.splitPair('foo')
+    expect(actual).toEqual(['foo', ''])
+  })
+
+  it('simple key value', () => {
+    const actual = Utils.splitPair('foo=bar')
+    expect(actual).toEqual(['foo', 'bar'])
+  })
+
 })
+
+
+//
+// ​
+// 'foo=bar=baz' -> { foo: 'bar=baz' });  // split on firt equal unless in bracket
+// ​
+// 'foo=bar&bar=baz' -> { foo: 'bar', bar: 'baz' });
+// ​
+// 'foo=bar&baz' -> { foo: 'bar', baz: '' });
+// ​
+// 'cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World' -> {
+//       cht: 'p3'
+//     , chd: 't:60,40'
+//     , chs: '250x100'
+//     , chl: 'Hello|World'
+//   }
+// ^^ all valid, not escaped

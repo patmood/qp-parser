@@ -32,6 +32,6 @@ export const parse = function(qs, debug = noop) {
   // [['a', [['b', 'c']]]] -> {a: [b: 'c']}
   return Utils.pairListToObject(pairs)
 }
-
+  
 export default parse
 module.exports = parse
